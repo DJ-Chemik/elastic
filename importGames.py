@@ -4,7 +4,7 @@ import elasticsearch
 from elasticsearch import helpers
 
 def readGames():
-    csvfile = open('todo.csv', 'r', encoding="utf8")
+    csvfile = open('games.csv', 'r', encoding="utf8")
 
     reader = csv.DictReader( csvfile )
 
@@ -28,8 +28,7 @@ def readGames():
         game['rating'] = line['Rating']
         yield game
 
-    es = elasticsearch.Elasticsearch(["http://127.0.0.1:9200"])
-
+es = elasticsearch.Elasticsearch(["http://127.0.0.1:9200"])
 es.indices.delete(index="ratings", ignore=404)
 deque(helpers.parallel_bulk(es,readGames(),index="games", request_timeout=300), maxlen=0)
 es.indices.refresh()
