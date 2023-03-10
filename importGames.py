@@ -11,6 +11,7 @@ def readGames():
     for line in reader:
         game = {}
         game['name'] = line['Name']
+        game['name']['raw'] = line['Name']
         game['platform'] = line['Platform']
         try: 
             game['year'] = int(line['Year_of_Release'])
