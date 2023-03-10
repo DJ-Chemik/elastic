@@ -12,7 +12,10 @@ def readGames():
         game = {}
         game['name'] = line['Name']
         game['platform'] = line['Platform']
-        game['year'] = line['Year_of_Release']
+        try: 
+            game['year'] = int(line['Year_of_Release'])
+        except:
+            game['year'] = -1
         game['genre'] = line['Genre']
         game['publisher'] = line['Publisher']
         game['na_sales'] = line['NA_Sales']
